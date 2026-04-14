@@ -1,7 +1,7 @@
 pipeline {
     agent {
         kubernetes {
-            label 'jenkins-0'
+            label 'jenkins-agent'
             yaml """
 apiVersion: v1
 kind: Pod
@@ -17,6 +17,9 @@ spec:
       tty: true
 """
         }
+    }
+    triggers {
+        githubPush()
     }
     stages {
         stage('Test python') {
